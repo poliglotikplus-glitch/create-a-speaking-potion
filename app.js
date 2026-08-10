@@ -197,6 +197,7 @@ function titleCasePhrase(value) {
 function showHomeScreen() {
   refs.homeScreen.classList.add('active');
   refs.gameScreen.classList.remove('active');
+  document.body.classList.remove('mobile-game-active');
   refs.gameContent.innerHTML = '';
   refs.gameHeader.innerHTML = '';
   if (musicGain && musicEnabled) musicGain.gain.value = 0.032;
@@ -205,6 +206,7 @@ function showHomeScreen() {
 function hideHomeScreen() {
   refs.homeScreen.classList.remove('active');
   refs.gameScreen.classList.add('active');
+  document.body.classList.add('mobile-game-active');
   if (musicGain && musicEnabled) musicGain.gain.value = 0.045;
 }
 
