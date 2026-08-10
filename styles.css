@@ -1630,19 +1630,20 @@ button {
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   #app-shell {
     min-height: 100dvh;
-    height: 100dvh;
-    overflow: hidden;
+    height: auto;
+    overflow: visible;
   }
 
   #app-shell > main {
     min-height: 0;
-    height: calc(100dvh - var(--mobile-topbar-height, 0px));
-    overflow: hidden;
+    height: auto;
+    overflow: visible;
   }
 
   #game-screen.active {
