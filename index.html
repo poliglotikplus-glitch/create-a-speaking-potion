@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a Speaking Potion</title>
+    <link rel="stylesheet" href="styles.css?v=20260809-plaque-wide" />
+  </head>
+  <body>
+    <div id="app-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">
+            <img src="assets/cauldron-potion.png" alt="Cauldron with glowing potion" />
+            <span class="brand-mist brand-mist-one" aria-hidden="true"></span>
+            <span class="brand-mist brand-mist-two" aria-hidden="true"></span>
+            <span class="brand-bubble brand-bubble-one" aria-hidden="true"></span>
+            <span class="brand-bubble brand-bubble-two" aria-hidden="true"></span>
+            <span class="brand-bubble brand-bubble-three" aria-hidden="true"></span>
+          </div>
+          <div class="brand-text">Create a Speaking Potion</div>
+        </div>
+        <div class="topbar-actions">
+          <button id="profile-button" class="mini-button">Profile</button>
+            <button id="music-toggle" class="mini-button" aria-label="Toggle music">Music: On</button>
+            <button id="sounds-toggle" class="mini-button" aria-label="Toggle game sounds">Sounds: On</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="home-screen" class="screen active">
+          <div class="game-grid" id="games-grid"></div>
+        </section>
+
+        <section id="game-screen" class="screen">
+          <div class="game-stage" id="game-stage">
+            <div id="game-header" class="game-header"></div>
+            <div id="game-content" class="game-content"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="intro-overlay" class="overlay active">
+      <video id="intro-video" src="начало.mp4" playsinline preload="auto"></video>
+      <button id="start-experience" class="magic-start" type="button">
+        <span class="magic-start-gem">✦</span>
+        <span>Start the magic</span>
+      </button>
+    </div>
+
+    <div id="name-modal" class="modal active">
+      <div class="modal-card">
+        <h2>Welcome, young witch!</h2>
+        <p>Before the magic begins, tell us your name.</p>
+        <input id="student-name" type="text" maxlength="24" placeholder="Your name" />
+        <button id="save-name" class="primary-button">Begin</button>
+      </div>
+    </div>
+
+    <div id="profile-modal" class="modal hidden">
+      <div class="modal-card profile-card">
+        <button class="close-modal" data-close="profile-modal">×</button>
+        <h2 id="profile-name">Profile</h2>
+        <div id="profile-avatar" class="profile-avatar"></div>
+        <div class="avatar-picker" id="avatar-picker"></div>
+        <h3 class="achievements-title">Achievements</h3>
+        <div id="reward-list" class="reward-list"></div>
+        <button id="return-to-game" class="secondary-button profile-return" type="button">Return to game</button>
+      </div>
+    </div>
+
+    <div id="instructions-modal" class="modal hidden">
+      <div class="modal-card instructions-card">
+        <button class="close-modal" data-close="instructions-modal">×</button>
+        <h2>How to play</h2>
+        <div id="instructions-text"></div>
+      </div>
+    </div>
+
+    <div id="end-video-overlay" class="overlay hidden">
+      <video id="end-video" src="конец.mp4" playsinline></video>
+    </div>
+
+    <div id="reward-video-overlay" class="overlay hidden">
+      <video id="reward-video" src="frogs liquid.mp4" playsinline></video>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
