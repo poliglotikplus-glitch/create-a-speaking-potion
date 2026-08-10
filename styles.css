@@ -1656,10 +1656,12 @@ button {
     display: none;
   }
 
+  body:has(#game-screen.active) .topbar {
+    display: none;
+  }
+
   #game-screen.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     position: fixed;
     inset: 0;
     width: 100vw;
@@ -1673,13 +1675,16 @@ button {
   }
 
   #game-screen.active .game-stage {
+    position: absolute;
+    top: 0;
+    left: 50%;
     flex: 0 0 auto;
     width: 1380px;
     max-width: none;
     min-height: 0;
-    margin: 0;
+    margin: 0 0 0 -690px;
     transform: scale(var(--mobile-game-scale, 1));
-    transform-origin: center center;
+    transform-origin: top center;
   }
 }
 

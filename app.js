@@ -715,13 +715,17 @@ function fitMobileGameStage() {
   const topbar = document.querySelector('.topbar');
   if (!screen || !stage || !screen.classList.contains('active')) return;
 
-  const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 0;
+  const topbarHeight = document.body.classList.contains('mobile-game-active') ? 0 : (topbar ? topbar.getBoundingClientRect().height : 0);
   document.documentElement.style.setProperty('--mobile-topbar-height', `${topbarHeight}px`);
   stage.style.transform = 'none';
-  const stageRect = stage.getBoundingClientRect();
-  const safeWidth = Math.max(1, window.innerWidth - 24);
-  const safeHeight = Math.max(1, window.innerHeight - topbarHeight - 16);
-  const scale = Math.min(safeWidth / stageRect.width, safeHeight / stageRect.height);
+  const viewport = window.visualViewport;
+  const viewportWidth = viewport ? viewport.width : window.innerWidth;
+  const viewportHeight = viewport ? viewport.height : window.innerHeight;
+  const safeWidth = Math.max(1, viewportWidth - 16);
+  const safeHeight = Math.max(1, viewportHeight - topbarHeight - 16);
+  const sourceWidth = stage.offsetWidth || 1380;
+  const sourceHeight = stage.scrollHeight || stage.offsetHeight || 1;
+  const scale = Math.min(safeWidth / sourceWidth, safeHeight / sourceHeight);
   document.documentElement.style.setProperty('--mobile-game-scale', String(Math.max(0.01, scale)));
   stage.style.transform = '';
 }
@@ -1013,10 +1017,11 @@ function fireLaser(target) {
   const muzzleAnchor = scene.querySelector('.muzzle-anchor');
   if (!muzzleAnchor) return;
   const muzzleRect = muzzleAnchor.getBoundingClientRect();
-  const startX = muzzleRect.left + muzzleRect.width / 2 - sceneRect.left;
-  const startY = muzzleRect.top + muzzleRect.height / 2 - sceneRect.top;
-  const endX = targetRect.left - sceneRect.left + targetRect.width / 2;
-  const endY = targetRect.top - sceneRect.top + targetRect.height / 2;
+  const sceneScale = scene.offsetWidth ? sceneRect.width / scene.offsetWidth : 1;
+  const startX = (muzzleRect.left + muzzleRect.width / 2 - sceneRect.left) / sceneScale;
+  const startY = (muzzleRect.top + muzzleRect.height / 2 - sceneRect.top) / sceneScale;
+  const endX = (targetRect.left - sceneRect.left + targetRect.width / 2) / sceneScale;
+  const endY = (targetRect.top - sceneRect.top + targetRect.height / 2) / sceneScale;
   const dx = endX - startX;
   const dy = endY - startY;
   beam.style.left = `${startX}px`;
@@ -1198,6 +1203,9 @@ function attachGlobalEvents() {
 
   window.addEventListener('resize', fitMobileGameStage, { passive: true });
   window.addEventListener('orientationchange', () => window.setTimeout(fitMobileGameStage, 120), { passive: true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', fitMobileGameStage, { passive: true });
+  }
 
 }
 
