@@ -1392,6 +1392,20 @@ button {
   background: #000;
 }
 
+#intro-video {
+  display: none;
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+#intro-overlay.video-started #intro-video {
+  display: block;
+}
+
+#intro-overlay.video-ready #intro-video {
+  opacity: 1;
+}
+
 .profile-avatar {
   width: 112px;
   height: 112px;

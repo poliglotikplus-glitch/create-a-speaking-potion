@@ -282,7 +282,6 @@ function saveStudentName() {
   saveProfile();
   refs.nameModal.classList.add('hidden');
   refs.profileName.textContent = `${name} — Profile`;
-  startMediaAudio();
 }
 
 function openProfile() {
@@ -406,6 +405,7 @@ function startIntroVideo() {
 function startExperience() {
   refs.startExperience.classList.add('started');
   refs.startExperience.disabled = true;
+  refs.introOverlay.classList.add('video-started');
   refs.introVideo.muted = false;
   refs.introVideo.volume = 0.78;
   ensureAudio();
@@ -1153,6 +1153,10 @@ function attachGlobalEvents() {
     }, 720);
     setMusicState(true);
   });
+
+  refs.introVideo.addEventListener('playing', () => {
+    refs.introOverlay.classList.add('video-ready');
+  }, { once: true });
 
   refs.introOverlay.addEventListener('click', () => {
     if (!refs.startExperience.classList.contains('started')) {
