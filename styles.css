@@ -1759,7 +1759,7 @@ button {
   body[data-active-game="game3"] .basket-button span {
     position: absolute;
     left: 50%;
-    top: 69%;
+    top: 80%;
     width: 68%;
     transform: translate(-50%, -50%);
     text-align: center;
