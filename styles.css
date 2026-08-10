@@ -1400,6 +1400,7 @@ button {
 
 #intro-overlay.video-started #intro-video {
   display: block;
+  opacity: 1;
 }
 
 #intro-overlay.video-ready #intro-video {
