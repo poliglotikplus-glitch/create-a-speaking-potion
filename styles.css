@@ -1757,8 +1757,15 @@ button {
   }
 
   body[data-active-game="game3"] .basket-button span {
-    transform: translateY(8px);
-    top: 0;
+    position: absolute;
+    left: 50%;
+    top: 69%;
+    width: 68%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    line-height: 1.05;
+    white-space: normal;
+    pointer-events: none;
   }
 }
 
