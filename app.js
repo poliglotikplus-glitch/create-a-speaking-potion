@@ -703,6 +703,25 @@ function startGame(gameId) {
   if (gameId === 'game1') startGame1();
   if (gameId === 'game2') startGame2();
   if (gameId === 'game3') startGame3();
+  window.requestAnimationFrame(fitMobileGameStage);
+}
+
+function fitMobileGameStage() {
+  if (window.innerWidth >= 1024) return;
+  const screen = document.getElementById('game-screen');
+  const stage = document.getElementById('game-stage');
+  const topbar = document.querySelector('.topbar');
+  if (!screen || !stage || !screen.classList.contains('active')) return;
+
+  const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 0;
+  document.documentElement.style.setProperty('--mobile-topbar-height', `${topbarHeight}px`);
+  stage.style.transform = 'none';
+  const stageRect = stage.getBoundingClientRect();
+  const safeWidth = Math.max(1, window.innerWidth - 24);
+  const safeHeight = Math.max(1, window.innerHeight - topbarHeight - 16);
+  const scale = Math.min(safeWidth / stageRect.width, safeHeight / stageRect.height);
+  document.documentElement.style.setProperty('--mobile-game-scale', String(Math.max(0.01, scale)));
+  stage.style.transform = '';
 }
 
 function showGameHint() {
@@ -1174,6 +1193,9 @@ function attachGlobalEvents() {
   });
 
   refs.rewardVideoOverlay.addEventListener('click', () => refs.rewardVideo.play().catch(() => {}));
+
+  window.addEventListener('resize', fitMobileGameStage, { passive: true });
+  window.addEventListener('orientationchange', () => window.setTimeout(fitMobileGameStage, 120), { passive: true });
 
 }
 
