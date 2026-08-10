@@ -198,6 +198,7 @@ function showHomeScreen() {
   refs.homeScreen.classList.add('active');
   refs.gameScreen.classList.remove('active');
   document.body.classList.remove('mobile-game-active');
+  delete document.body.dataset.activeGame;
   refs.gameContent.innerHTML = '';
   refs.gameHeader.innerHTML = '';
   if (musicGain && musicEnabled) musicGain.gain.value = 0.032;
@@ -692,6 +693,7 @@ function startGame(gameId) {
   if (!game) return;
 
   hideHomeScreen();
+  document.body.dataset.activeGame = gameId;
   refs.gameHeader.innerHTML = `
     <button class="back-button" id="game-back-button">Back</button>
     <h2>${game.title}</h2>
