@@ -1124,9 +1124,16 @@ function prepareRound3() {
 
 function playEndingVideo() {
   backgroundMusic.pause();
+  refs.endVideo.controls = false;
+  refs.endVideoOverlay.classList.add('video-loading');
   refs.endVideoOverlay.classList.remove('hidden');
   refs.endVideo.currentTime = 0;
-  refs.endVideo.play().catch(() => {});
+  const reveal = () => {
+    refs.endVideoOverlay.classList.remove('video-loading');
+    refs.endVideo.play().catch(() => {});
+  };
+  if (refs.endVideo.readyState >= 3) reveal();
+  else refs.endVideo.addEventListener('canplay', reveal, { once: true });
   refs.endVideo.onended = () => {
     refs.endVideoOverlay.classList.add('hidden');
     if (musicEnabled) backgroundMusic.play().catch(() => {});
@@ -1141,6 +1148,8 @@ function playRewardVideo(onComplete, gameId = 'game1') {
       ? 'rat.mp4'
       : 'frogs liquid.mp4';
   refs.rewardVideo.load();
+  refs.rewardVideo.controls = false;
+  refs.rewardVideoOverlay.classList.add('video-loading');
   refs.rewardVideoOverlay.classList.remove('hidden');
   refs.rewardVideo.currentTime = 0;
   const finish = () => {
@@ -1150,10 +1159,15 @@ function playRewardVideo(onComplete, gameId = 'game1') {
   };
   refs.rewardVideo.onended = finish;
   refs.rewardVideo.onerror = finish;
-  refs.rewardVideo.play().catch(() => {
-    refs.rewardVideo.muted = true;
-    refs.rewardVideo.play().catch(finish);
-  });
+  const reveal = () => {
+    refs.rewardVideoOverlay.classList.remove('video-loading');
+    refs.rewardVideo.play().catch(() => {
+      refs.rewardVideo.muted = true;
+      refs.rewardVideo.play().catch(finish);
+    });
+  };
+  if (refs.rewardVideo.readyState >= 3) reveal();
+  else refs.rewardVideo.addEventListener('canplay', reveal, { once: true });
 }
 
 function attachGlobalEvents() {
