@@ -1200,6 +1200,13 @@ function attachGlobalEvents() {
     refs.introOverlay.classList.add('video-ready');
   }, { once: true });
 
+  refs.introVideo.addEventListener('loadeddata', () => {
+    refs.introOverlay.classList.add('video-loaded');
+  }, { once: true });
+  if (refs.introVideo.readyState >= 2) {
+    refs.introOverlay.classList.add('video-loaded');
+  }
+
   refs.introOverlay.addEventListener('click', () => {
     if (!refs.startExperience.classList.contains('started')) {
       refs.startExperience.focus();

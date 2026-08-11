@@ -1405,7 +1405,12 @@ button {
 #intro-video {
   display: block;
   opacity: 1;
+  visibility: hidden;
   transition: opacity 450ms ease;
+}
+
+#intro-overlay.video-loaded #intro-video {
+  visibility: visible;
 }
 
 #intro-overlay.video-started #intro-video {
