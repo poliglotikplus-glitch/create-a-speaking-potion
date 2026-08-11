@@ -1403,8 +1403,8 @@ button {
 }
 
 #intro-video {
-  display: none;
-  opacity: 0;
+  display: block;
+  opacity: 1;
   transition: opacity 450ms ease;
 }
 
